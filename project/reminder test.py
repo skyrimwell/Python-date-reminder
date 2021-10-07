@@ -9,7 +9,7 @@ class ReminderTest(unittest.TestCase):
         self.birthdayBook.addPerson(person1)
 
     def testDay(self):
-        self.assertEqual(self.birthdayBook._getBirthdayByName("Саня"), [9, 9, 2001])
+        self.assertEqual(self.birthdayBook.printBirthDateByName("Саня"), ['Саня', 9, 9, 2001])
 
 
 if __name__ == '__main__':
