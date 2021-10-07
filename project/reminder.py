@@ -32,6 +32,22 @@ class BirthdayBook:
             if p.getBirthDate().month == month:
                 marches.append(p)
         return marches
+
+    def _getPersonsBirthdayWithinTheWeek(self, month, day):
+        marches = [];
+        currentDatetime = datetime.now()
+        userDateWeekday = datetime(currentDatetime.year, month, day).weekday()
+        firstWeekdayTimestamp = datetime(currentDatetime.year, month, day).timestamp()
+        lastWeekdayTimestamp = (datetime(currentDatetime.year, month, day) + timedelta(6 - userDateWeekday)).timestamp()
+        for p in self.personList.values():
+            pBirthDate = p.getBirthDate()
+            if pBirthDate.month == month:
+                pBirthDate = datetime(currentDatetime.year, pBirthDate.month, pBirthDate.day)
+                ptimestamp = pBirthDate.timestamp()
+                if ptimestamp >= firstWeekdayTimestamp and ptimestamp <= lastWeekdayTimestamp:
+                    marches.append(p)
+        return marches
+
     def printBirthDateByName(self, name):
         d = self._getBirthdayByName(name)
         if d!= None:
@@ -48,6 +64,17 @@ class BirthdayBook:
         else:
             return None
 
+    def printBirthdayWithinTheWeek(self, month, day):
+        marches = self._getPersonsBirthdayWithinTheWeek(month, day)
+        if marches != []:
+            print("В течении недели родились: ", month, day)
+            for p in marches:
+                print(p.getName())
+            return [p.getName() for p in marches]
+        else:
+            print("Никто не родился в течении недели")
+            return None
+
 
 if __name__ == '__main__':
     person1 = Person("Саня", datetime(2001,9,9))
@@ -55,4 +82,4 @@ if __name__ == '__main__':
     birthdayBook.addPerson(person1)
     birthdayBook.printBirthdayByMonth(9)
     print(birthdayBook.printBirthDateByName("Саня"))
-
+    birthdayBook.printBirthdayWithinTheWeek(9, 8)

@@ -26,6 +26,10 @@ class ReminderTest(unittest.TestCase):
         self.assertEqual(self.birthdayBook.printBirthdayByMonth(9), ['Саня', 'Серега', 'Еще один серега'])
     def testDay4(self):
         self.assertEqual(self.birthdayBook.printBirthdayByMonth(1), None)
+    def testDay5(self):
+        self.assertEqual(self.birthdayBook.printBirthdayWithinTheWeek(9, 8), ['Саня', 'Серега', 'Еще один серега'])
+    def testDay6(self):
+        self.assertEqual(self.birthdayBook.printBirthdayWithinTheWeek(1, 1), None)
 
 if __name__ == '__main__':
     unittest.main()
